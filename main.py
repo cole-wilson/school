@@ -3,6 +3,7 @@ import shutil
 import toml
 import requests
 import markdown
+import git
 from jinja2 import Template
 
 def copytree(src, dst, symlinks=False, ignore=None):
@@ -36,6 +37,8 @@ with open("netlify.toml", 'a') as configfile:
 
 domains = []
 for project in data['project']:
+	if 'gh' in project and not os.path.isdir('src/' + project['src']):
+		git.Git('src').clone(project["gh"])
 	domains.append(project['src'] + ".school.colewilson.xyz")
 
 if 'TOKEN' in os.environ:
