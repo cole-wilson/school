@@ -1,0 +1,10 @@
+[build]
+base = "."
+publish = "build"
+command = "python3 main.py"
+
+[[headers]]
+for = "/*"
+[headers.values]
+X-Random = "Squirrel!!"
+
