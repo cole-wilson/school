@@ -1,9 +1,17 @@
 # appended:
 
 {% for project in projects %}
+
 [[redirects]]
 from = "https://{{ project.src }}.school.colewilson.xyz/*"
 to = "https://school.colewilson.xyz/src/{{ project.src }}/:splat"
 status = 200
 force = true
+
+[[redirects]]
+from = "https://{{ project.src }}.school.colewilson.xyz/*..302.."
+to = "https://school.colewilson.xyz/src/{{ project.src }}/:splat"
+status = 302
+force = true
+
 {% endfor %}
