@@ -6,6 +6,9 @@ import markdown
 import git
 from jinja2 import Template
 
+__version__ = "0.0.1"
+print(__version__)
+
 style = """
 <style>
 	body {
