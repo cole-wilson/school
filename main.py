@@ -38,10 +38,10 @@ domains = []
 for project in data['project']:
 	domains.append(project['src'] + ".school.colewilson.xyz")
 
-site_id = ""
-token = ""
+site_id = os.environ['SITE_ID']
+token = os.environ['TOKEN']
 call = requests.put(
-	f"https://api.netlify.com/api/v1/sites/{site_id}",
+	"https://api.netlify.com/api/v1/sites/" + site_id,
 	data={"domain_aliases": domains},
-	headers={"Authorization": f"Bearer {token}"}
+	headers={"Authorization": "Bearer " + token}
 )
