@@ -40,7 +40,9 @@
 			{% set y = false %}
 			{% for project in projects %}{% if project.grade == grade %}
 			{% set y = true %}
-			<li><a href="//{{project.src}}.school.colewilson.xyz">{{project.title}}</a> [{{project.class}}] <a href="//github.com/cole-wilson/school/tree/master/src/{{project.source}}"><em>view source</em></a></li>
+			<li><a href="//{{project.src}}.school.colewilson.xyz">{{project.title}}</a> [{{project.class}}]
+				<a href="{% if project.gh %}{{project.gh}}#readme{% else %}//github.com/cole-wilson/school/tree/master/src/{{project.src}}#readme{%endif%}"><em>view source</em></a>
+			</li>
 			{% endif %}{% endfor %}
 			{% if not y %}
 			Nothing for this grade yet!
