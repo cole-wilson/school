@@ -18,20 +18,7 @@
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title>School Projects</title>
 	<base target="_blank">
-	<style>
-		body {
-			margin: 200px;
-			background: black;
-			color: white;
-			font-family: monospace;
-		}
-		em {
-			font-size: 0.7em;
-		}
-		a:any-link {
-			color: inherit;
-		}
-	</style>
+	{{style}}
 </head>
 <body>
 	<h1>School Projects</h1>
@@ -47,11 +34,11 @@
 			{% endif %}{% endfor %}
 		</ul>
 	</details>{% endfor %}
-	<details>
+	<details open>
 		<summary>Random Single Pages (notes/lists/resources/etc)</summary>
 		<ul>
 			{% for page in pages %}
-			<li><a href="/pages/{{page.replace('.md', '')}}">{{page}}</a></li>
+			<li><h3><a href="/pages/{{page.replace('.md', '')}}">{{page}}</a></h3></li>
 			{% endfor %}
 		</ul>
 	</details>
