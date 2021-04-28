@@ -64,6 +64,14 @@ for file in os.listdir('pages'):
 		with open('pages/' + file) as f:
 			d = f.read()
 		with open('pages/' + file, 'w+') as f:
+			header = """<style>
+			body {
+				margin: 200px;
+				background: black;
+				color: white;
+				font-family: monospace;
+			}</style>
+			""" if "<nocss></nocss>" not in d else ""
 			f.write(markdown.markdown(d))
 		plain = file[:-3]
 		os.mkdir('pages/' + plain)

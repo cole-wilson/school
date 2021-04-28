@@ -1,3 +1,4 @@
+{%- set cgrade = 9 -%}
 <!DOCTYPE html>
 <html lang="en">
 <!-- 
@@ -16,8 +17,10 @@
 	<meta charset="utf-8">
 	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
 	<title>School Projects</title>
+	<base target="_blank">
 	<style>
 		body {
+			margin: 200px;
 			background: black;
 			color: white;
 			font-family: monospace;
@@ -34,19 +37,14 @@
 	<h1>School Projects</h1>
 	<p>Hello! This is a website where I put all of my projects for school. Some of them are very random and some are very small, but here they are!</p>
 	{% for grade in range(6, 12 + 1) %}
-	<details>
+	<details{%if grade==cgrade %} open{%endif%}>
 		<summary>Grade {{grade}}</summary>
 		<ul>
-			{% set y = false %}
 			{% for project in projects %}{% if project.grade == grade %}
-			{% set y = true %}
-			<li><a href="//{{project.src}}.school.colewilson.xyz">{{project.title}}</a> [{{project.class}}]
+			<li><h3><a href="//{{project.src}}.school.colewilson.xyz">{{project.title}}</a></h3> [{{project.class}}]
 				<a href="{% if project.gh %}{{project.gh}}#readme{% else %}//github.com/cole-wilson/school/tree/master/src/{{project.src}}#readme{%endif%}"><em>view source</em></a>
 			</li>
 			{% endif %}{% endfor %}
-			{% if not y %}
-			Nothing for this grade yet!
-			{% endif %}
 		</ul>
 	</details>{% endfor %}
 	<details>
