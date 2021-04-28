@@ -2,7 +2,7 @@ import os
 import shutil
 import toml
 import requests
-import json
+import markdown
 from jinja2 import Template
 
 def copytree(src, dst, symlinks=False, ignore=None):
@@ -16,7 +16,7 @@ def copytree(src, dst, symlinks=False, ignore=None):
 		else:
 			shutil.copy2(s, d)
 
-os.system('git submodule update --recursive --force')
+os.system('git submodule update --recursive --force --init')
 
 if os.path.isdir('build'):
 	shutil.rmtree('build')
@@ -38,10 +38,30 @@ domains = []
 for project in data['project']:
 	domains.append(project['src'] + ".school.colewilson.xyz")
 
-site_id = os.environ['SITE_ID']
-token = os.environ['TOKEN']
-call = requests.put(
-	"https://api.netlify.com/api/v1/sites/" + site_id,
-	data={"domain_aliases": domains},
-	headers={"Authorization": "Bearer " + token}
-)
+if 'TOKEN' in os.environ:
+	site_id = os.environ['SITE_ID']
+	token = os.environ['TOKEN']
+	call = requests.put(
+		"https://api.netlify.com/api/v1/sites/" + site_id,
+		data={"domain_aliases": domains},
+		headers={"Authorization": "Bearer " + token}
+	)
+	if call.status_code != 200:
+		exit('API Call did not return a 200 status')
+
+with open("index.html", 'r') as index:
+	template = Template(index.read())
+	out = template.render(projects = data['project'], pages = os.listdir('pages'))
+
+with open("index.html", 'w+') as index:
+	index.write(out)
+
+for file in os.listdir('pages'):
+	if file.endswith('.md'):
+		with open('pages/' + file) as f:
+			d = f.read()
+		with open('pages/' + file, 'w+') as f:
+			f.write(markdown.markdown(d))
+		plain = file[:-3]
+		os.mkdir('pages/' + plain)
+		os.rename('pages/' + file, 'pages/' + plain  + "/index.html")
