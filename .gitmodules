@@ -1,3 +1,12 @@
 [submodule "src/overpop"]
 	path = src/overpop
 	url = https://github.com/cole-wilson/overpop
+[submodule "visit-new-york"]
+	path = visit-new-york
+	url = https://github.com/cole-wilson/visit-new-york.git
+[submodule "src/newyork"]
+	path = src/newyork
+	url = https://github.com/cole-wilson/visit-new-york.git
+[submodule "src/covidspeech"]
+	path = src/covidspeech
+	url = https://github.com/cole-wilson/corona-speech.git

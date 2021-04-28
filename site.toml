@@ -4,4 +4,17 @@ class = "Honors Biology"
 list = true
 title = "Overpopulation Website"
 src = "overpop"
-# gh = "https://github.com/cole-wilson/overpop"
+
+[[project]]
+grade = 8
+class = "Social Studies"
+list = true
+title = "Visit New York"
+src = "newyork"
+
+[[project]]
+grade = 8
+class = "Social Studies"
+list = true
+title = "Free Speech During Covid"
+src = "covidspeech"
