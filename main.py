@@ -3,7 +3,6 @@ import shutil
 import toml
 import requests
 import markdown
-import git
 from jinja2 import Template
 
 __version__ = "0.0.1"
@@ -51,6 +50,32 @@ style = """
 																		supported by Chrome, Edge, Opera and Firefox */
 	}
 </style>
+"""
+temp = """<!DOCTYPE html>
+<html lang="en">
+<!-- 
+         _.-\"\"\"-,
+       .'  ..::. `\
+      /  .::' `'` /     +-----------+
+     / .::' .--.=;     /   I am a   |
+     | ::' /  C ..\   /  squirrel!! |
+     | :: |   \  _.) /--------------+
+      \ ':|   /  \
+       '-, \./ \)\)
+          `-|   );/
+     jgs     '--'-'
+-->
+<head>
+	<meta charset="utf-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no" />
+	<title>{title} | School Projects</title>
+	<base target="_blank">
+	{style}
+</head>
+<body>
+	{md}
+</body>
+</html>
 """
 
 def copytree(src, dst, symlinks=False, ignore=None):
@@ -108,11 +133,10 @@ with open("index.html", 'w+') as index:
 
 for file in os.listdir('pages'):
 	if file.endswith('.md'):
+		plain = file[:-3]
 		with open('pages/' + file) as f:
 			d = f.read()
 		with open('pages/' + file, 'w+') as f:
-			f.write(style if "<nocss></nocss>" not in d else "")
-			f.write(markdown.markdown(d))
-		plain = file[:-3]
+			f.write(temp.format(style=style,title=plain,md=markdown.markdown(d)))
 		os.mkdir('pages/' + plain)
 		os.rename('pages/' + file, 'pages/' + plain  + "/index.html")
