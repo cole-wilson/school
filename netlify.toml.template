@@ -4,6 +4,6 @@
 [[redirects]]
 from = "https://{{ project.src }}.school.colewilson.xyz/*"
 to = "https://school.colewilson.xyz/src/{{ project.src }}/:splat"
-status = 302
+status = 200
 force = true
 {% endfor %}
